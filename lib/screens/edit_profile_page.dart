@@ -69,9 +69,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
     addressController.text = "Kumaripati";
     emailController.text = "hari.bahadur@gmail.com";
     dobController.text = "09/12/1996";
-    String _district = "Kathmandu";
-    String _gender = "Male";
-    String _state = "Bagmati Province";
+    String district = "Kathmandu";
+    String gender = "Male";
+    String state = "Bagmati Province";
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -168,7 +168,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           child: CustomAutoCompleteTextField(
                             key: _stateKey,
                             stream: _stateStream.stream,
-                            value: _state,
+                            value: state,
                             iconData: Icons.location_city,
                             items: stateItems,
                             label:
@@ -185,7 +185,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           child: CustomAutoCompleteTextField(
                             key: _districtKey,
                             stream: _districtStream.stream,
-                            value: _district,
+                            value: district,
                             iconData: Icons.location_city,
                             items: districtItems,
                             label:
@@ -224,7 +224,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             key: _genderKey,
                             iconData: Icons.person_pin_rounded,
                             items: genderItems,
-                            value: _gender,
+                            value: gender,
                             hasBorder: true,
                           ),
                         ),

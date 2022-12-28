@@ -1,5 +1,4 @@
 import 'package:amsapp/myutils/geolocation_helper.dart';
-import 'package:amsapp/myutils/location_helper.dart';
 import 'package:amsapp/widgets/custom_indicator_button.dart';
 import 'package:flutter/material.dart';
 
@@ -33,10 +32,10 @@ class _AttendanceFormPageState extends State<AttendanceFormPage> {
                             'latitude: ${value.latitude}, longitude: ${value.longitude}, time stamp: ${value.timestamp}')),
                     latitude = value.longitude,
                     longitude = value.longitude,
+                    GeoLocationHelper.getAddressFromLatLng(
+                            latitude: latitude, longitude: longitude)
+                        .then((value) => Logger.printLog(value)),
                   });
-              GeoLocationHelper.getAddressFromLatLng(
-                      latitude: latitude, longitude: longitude)
-                  .then((value) => Logger.printLog(value));
             },
           ),
         ),

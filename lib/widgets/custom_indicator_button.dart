@@ -59,15 +59,13 @@ class CustomIndicatorButtonState extends State<CustomIndicatorButton> {
       _error = true;
       _done = false;
       _showText = false;
-      Future.delayed(const Duration(milliseconds: 600), () {
-        setState(() {
-          _isLoading = false;
-          _done = false;
-          _error = false;
-          _showText = true;
-          _width = Dimens.normalDimens * 19.0;
-          _borderRadius = BorderRadius.circular(Dimens.normalDimens * 4.0);
-        });
+      setState(() {
+        _isLoading = false;
+        _done = false;
+        _error = false;
+        _showText = true;
+        _width = Dimens.normalDimens * 19.0;
+        _borderRadius = BorderRadius.circular(Dimens.normalDimens * 4.0);
       });
     });
   }
@@ -79,15 +77,13 @@ class CustomIndicatorButtonState extends State<CustomIndicatorButton> {
       _error = false;
       _done = true;
       _showText = false;
-      Future.delayed(const Duration(milliseconds: 600), () {
-        setState(() {
-          _isLoading = false;
-          _done = false;
-          _error = false;
-          _showText = true;
-          _width = Dimens.normalDimens * 19.0;
-          _borderRadius = BorderRadius.circular(Dimens.normalDimens * 4.0);
-        });
+      setState(() {
+        _isLoading = false;
+        _done = false;
+        _error = false;
+        _showText = true;
+        _width = Dimens.normalDimens * 19.0;
+        _borderRadius = BorderRadius.circular(Dimens.normalDimens * 4.0);
       });
     });
   }
@@ -99,15 +95,13 @@ class CustomIndicatorButtonState extends State<CustomIndicatorButton> {
       _error = false;
       _done = true;
       _showText = false;
-      Future.delayed(const Duration(milliseconds: 1000), () {
-        setState(() {
-          _isLoading = false;
-          _done = false;
-          _error = false;
-          _showText = true;
-          _width = Dimens.normalDimens * 19.0;
-          _borderRadius = BorderRadius.circular(Dimens.normalDimens * 4.0);
-        });
+      setState(() {
+        _isLoading = false;
+        _done = false;
+        _error = false;
+        _showText = true;
+        _width = Dimens.normalDimens * 19.0;
+        _borderRadius = BorderRadius.circular(Dimens.normalDimens * 4.0);
       });
     });
   }

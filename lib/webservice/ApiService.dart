@@ -12,7 +12,7 @@ import 'package:amsapp/myutils/logger.dart';
 import 'package:amsapp/webservice/ResponseWrapper.dart';
 
 class ApiProvider {
-  static const String _baseUrl = "http://192.168.1.181:8000";
+  static const String _baseUrl = "http://192.168.1.7:8000";
   static const String _apiController = "$_baseUrl/api/";
 
   //APIs

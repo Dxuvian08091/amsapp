@@ -43,10 +43,10 @@ class _LoginPageState extends State<LoginPage> {
     Preference.setString(Constant.spRefreshToken, resMap["refresh"].toString());
     Preference.setBool(Constant.spIsLogin, true);
     Logger.printLog(
-        "access: ${Preference.getBool(Constant.spAccessToken).toString()}");
+        "access: ${Preference.getString(Constant.spAccessToken).toString()}");
     Logger.printLog(
-        "refresh: ${Preference.getBool(Constant.spRefreshToken).toString()}");
-    _buttonKey.currentState?.setSuccess();
+        "refresh: ${Preference.getString(Constant.spRefreshToken).toString()}");
+    Navigator.pushReplacementNamed(context, RouteNames.attendanceFormPage);
   }
 
   @override
@@ -158,8 +158,6 @@ class _LoginPageState extends State<LoginPage> {
                                               context, resWrapper.message),
                                         }
                                     });
-                            Navigator.pushReplacementNamed(
-                                context, RouteNames.attendanceFormPage);
                           }
                         },
                         enableIndicator: true,

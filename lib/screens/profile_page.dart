@@ -85,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     CircleAvatar(
                       radius: Dimens.normalDimens * 5,
-                      child: Preference.getString("profile_picture") != null
+                      child: Preference.getString("profile_picture").isEmpty
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(
                                   Dimens.normalDimens * 5),
