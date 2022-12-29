@@ -31,14 +31,14 @@ class CustomDropDownButton extends StatefulWidget {
 }
 
 class CustomDropDownButtonState extends State<CustomDropDownButton> {
-  String? value;
+  String value = "";
 
   @override
   Widget build(BuildContext context) {
     List<String> condition = widget.condition ?? ["Default Option"];
     IconData iconData = widget.iconData ?? Icons.app_blocking;
     List<String> items = widget.items ?? ["Default Option"];
-    String? defaultValue = value ?? widget.value;
+    String? defaultValue = value;
     bool hasBorder = widget.hasBorder ?? false;
     return Container(
       height: Dimens.normalDimens * 5,
@@ -84,7 +84,7 @@ class CustomDropDownButtonState extends State<CustomDropDownButton> {
                   widget.streamController?.sink.add(false);
                 }
                 setState(() {
-                  value = newValue;
+                  value = newValue!;
                 });
               },
             ),

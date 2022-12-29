@@ -95,7 +95,7 @@
     "loading": "Loading",
     "contact_number": "Contact Number(Optional)",
     "province": "Province",
-    "dob": "Date of Birth (YYYY/MM/DD)",
+    "dob": "Date of Birth (DD/MM/YYYY)",
     "update_documents": "Update Documents",
     "update_vehicle_info": "Update Vehicle Info",
     "decline": "Decline",
@@ -142,5 +142,10 @@
     "fuel_type": "Fuel Type",
     "attendance_form": "Attendance Form",
     "present_days": "Present Days",
-    "leave_days": "Leave Days"
+    "leave_days": "Leave Days",
+    "create_profile": "Create Profile",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "middle_name": "Middle Name",
+    "create": "Create"
   }

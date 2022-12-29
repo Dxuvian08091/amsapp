@@ -1,36 +1,34 @@
 import 'dart:async';
-import 'dart:convert';
 
+import 'package:amsapp/webservice/ApiService.dart';
+import 'package:amsapp/webservice/ResponseWrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:amsapp/myutils/dimens.dart';
-import 'package:amsapp/widgets/custom_autocomplete_textfield.dart';
-import 'package:amsapp/widgets/custom_dropdown_button.dart';
-import 'package:amsapp/widgets/custom_image_selector.dart';
-import 'package:amsapp/widgets/custom_indicator_button.dart';
-
 import '../app_localizations.dart';
 import '../models/Person.dart';
 import '../myutils/alert_utils.dart';
 import '../myutils/app_colors.dart';
 import '../myutils/constant.dart';
 import '../myutils/data_items.dart';
+import '../myutils/dimens.dart';
 import '../myutils/logger.dart';
 import '../myutils/preference.dart';
 import '../myutils/route_generator.dart';
 import '../myutils/styles.dart';
-import '../webservice/ApiService.dart';
-import '../webservice/ResponseWrapper.dart';
+import '../widgets/custom_autocomplete_textfield.dart';
+import '../widgets/custom_dropdown_button.dart';
+import '../widgets/custom_image_selector.dart';
+import '../widgets/custom_indicator_button.dart';
 import '../widgets/custom_text_field.dart';
 
-class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({Key? key}) : super(key: key);
+class CreateProfilePage extends StatefulWidget {
+  const CreateProfilePage({super.key});
 
   @override
-  State<EditProfilePage> createState() => _EditProfilePageState();
+  State<CreateProfilePage> createState() => _CreateProfileState();
 }
 
-class _EditProfilePageState extends State<EditProfilePage> {
+class _CreateProfileState extends State<CreateProfilePage> {
   bool value = false;
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController middleNameController = TextEditingController();
@@ -70,36 +68,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  @override
-  void initState() {
-    super.initState();
-    Person user;
-    ApiProvider()
-        .get(ApiProvider.personsApi,
-            Preference.getString(Constant.spAccessToken))
-        .then((resWrapper) => {
-              user = Person.fromJson(jsonDecode(resWrapper)[0]),
-              Preference.setInt('id', user.id),
-              Preference.setString('username', user.username),
-              Preference.setString('role', user.role),
-              Preference.setString('firstName', user.firstName),
-              Preference.setString('middleName', user.middleName),
-              Preference.setString('lastName', user.lastName),
-              Preference.setString('gender', user.gender),
-              Preference.setString('dob', user.dob),
-              Preference.setString('state', user.state),
-              Preference.setString('district', user.district),
-              Preference.setString('email', user.email),
-              Preference.setString('contactNo', user.contactNumber),
-              Preference.setString('address', user.address),
-              Preference.setString('bloodGroup', user.bloodGroup),
-              Preference.setString('profilePicuture', user.profilePicture),
-            });
-  }
-
   void onUpdated(BuildContext context, Map<String, dynamic> resData) {
     ApiProvider()
-        .put(ApiProvider.personsApi, Preference.getInt('id'), resData,
+        .postUpdate(ApiProvider.personsApi, resData,
             Preference.getString(Constant.spAccessToken))
         .then((resWrapper) => {
               if (resWrapper.status == ResponseWrapper.COMPLETED)
@@ -119,33 +90,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    String username = Preference.getString('username');
-    String role = Preference.getString('role');
-    String firstName = Preference.getString('firstName');
-    String middleName = Preference.getString('middleName');
-    String lastName = Preference.getString('lastName');
-    String gender = Preference.getString('gender');
-    String dob = Preference.getString('dob');
-    String state = Preference.getString('state');
-    String district = Preference.getString('district');
-    String email = Preference.getString('email');
-    String contactNo = Preference.getString('contactNo');
-    String address = Preference.getString('address');
-    String bloodGroup = Preference.getString('bloodGroup');
-    String profilePicture = Preference.getString('profilePicuture');
-
-    firstNameController.text = firstName;
-    middleNameController.text = middleName;
-    lastNameController.text = lastName;
-    _genderKey.currentState!.value = gender;
-    dobController.text = dob;
-    _stateKey.currentState!.text = state;
-    _districtKey.currentState!.text = district;
-    emailController.text = email;
-    mobileController.text = contactNo;
-    addressController.text = address;
-    _bloodGroupKey.currentState!.value = bloodGroup;
-    _profileImgKey.currentState!.filePath = profilePicture;
+    String district = "Kathmandu";
+    String gender = "Male";
+    String bloodGroup = "A +ve";
+    String state = "Bagmati Province";
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -179,7 +127,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       },
                     ),
                     Text(
-                      AppLocalizations.getString(context, "edit_profile"),
+                      AppLocalizations.getString(context, "create_profile"),
                       style: Styles.boldInfoFontStyle,
                     ),
                     const SizedBox(

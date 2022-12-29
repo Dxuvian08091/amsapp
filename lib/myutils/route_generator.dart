@@ -5,6 +5,7 @@ import 'package:amsapp/screens/login_page.dart';
 
 import '../screens/attendance_leave_page.dart';
 import '../screens/change_password_page.dart';
+import '../screens/create_profile_page.dart';
 import '../screens/edit_profile_page.dart';
 import '../screens/profile_page.dart';
 // import 'package:amsapp/screens/';
@@ -40,6 +41,10 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (context) => const AttendanceLeavePage(),
             settings: settings);
+      case RouteNames.createProfilePage:
+        return MaterialPageRoute(
+            builder: (context) => const CreateProfilePage(),
+            settings: settings);
     }
     return _errorRoute();
   }
@@ -67,4 +72,5 @@ class RouteNames {
   static const attendanceFormPage = "attendanceForm";
   static const attendancePresentPage = "attendancePresent";
   static const attendanceLeavePage = "attendanceLeave";
+  static const createProfilePage = "createProfile";
 }

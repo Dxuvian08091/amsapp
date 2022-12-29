@@ -28,11 +28,18 @@ class ApiProvider {
   static const String presentApi = "${attendancesApi}present/";
   static const String absentApi = "${attendancesApi}leave/";
 
-  Future<dynamic> get(String url) async {
+  Future<dynamic> get(String url, String token) async {
     Logger.printLog("API : GET $url");
     ResponseWrapper responseJson;
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          "Authorization": "Bearer $token",
+          "Content-Type": "application/json; charset=UTF-8",
+          "accept": "application/json",
+        },
+      );
       responseJson = _response(response);
     } on SocketException {
       return ResponseWrapper(

@@ -3,8 +3,12 @@ import 'dart:convert';
 
 import 'package:amsapp/myutils/alert_utils.dart';
 import 'package:amsapp/myutils/constant.dart';
+import 'package:amsapp/myutils/network_connectivity.dart';
+import 'package:amsapp/myutils/queue_processor.dart';
 import 'package:amsapp/webservice/ApiService.dart';
 import 'package:amsapp/webservice/ResponseWrapper.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:amsapp/myutils/dimens.dart';
 import 'package:amsapp/myutils/styles.dart';
@@ -25,6 +29,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  Map _source = {ConnectivityResult.none: false};
+  final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
+  bool isOnline = false;
   final GlobalKey<CustomIndicatorButtonState> _buttonKey =
       GlobalKey<CustomIndicatorButtonState>();
 
@@ -38,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
       StreamController<String>.broadcast();
 
   void onLogin(BuildContext context, String data) {
+    QueueProcessor.processor();
     dynamic resMap = jsonDecode(data);
     Preference.setString(Constant.spAccessToken, resMap["access"].toString());
     Preference.setString(Constant.spRefreshToken, resMap["refresh"].toString());
@@ -46,7 +54,43 @@ class _LoginPageState extends State<LoginPage> {
         "access: ${Preference.getString(Constant.spAccessToken).toString()}");
     Logger.printLog(
         "refresh: ${Preference.getString(Constant.spRefreshToken).toString()}");
-    Navigator.pushReplacementNamed(context, RouteNames.attendanceFormPage);
+    if (Preference.getBool(Constant.spIsFirstTime)) {
+      Navigator.pushReplacementNamed(context, RouteNames.createProfilePage);
+    } else {
+      Navigator.pushReplacementNamed(context, RouteNames.attendanceFormPage);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _networkConnectivity.initialize();
+    _networkConnectivity.myStream.listen((source) {
+      _source = source;
+      if (kDebugMode) {
+        print('source $_source');
+      }
+
+      switch (_source.keys.toList()[0]) {
+        case ConnectivityResult.mobile:
+          isOnline = _source.values.toList()[0] ? true : false;
+          break;
+        case ConnectivityResult.wifi:
+          isOnline = _source.values.toList()[0] ? true : false;
+          break;
+        case ConnectivityResult.none:
+        default:
+          isOnline = false;
+      }
+      Preference.setBool('isOnline', isOnline);
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _networkConnectivity.disposeStream();
+    super.dispose();
   }
 
   @override
@@ -140,24 +184,29 @@ class _LoginPageState extends State<LoginPage> {
                               "username": username,
                               "password": password
                             };
-
-                            ApiProvider()
-                                .post(ApiProvider.loginApi, body)
-                                .then((resWrapper) => {
-                                      if (resWrapper.status ==
-                                          ResponseWrapper.COMPLETED)
-                                        {
-                                          _buttonKey.currentState?.setSuccess(),
-                                          Logger.printLog(resWrapper.data),
-                                          onLogin(context, resWrapper.data),
-                                        }
-                                      else
-                                        {
-                                          _buttonKey.currentState?.setError(),
-                                          AlertUtils.showSnackBar(
-                                              context, resWrapper.message),
-                                        }
-                                    });
+                            if (isOnline) {
+                              ApiProvider()
+                                  .post(ApiProvider.loginApi, body)
+                                  .then((resWrapper) => {
+                                        if (resWrapper.status ==
+                                            ResponseWrapper.COMPLETED)
+                                          {
+                                            _buttonKey.currentState
+                                                ?.setSuccess(),
+                                            Logger.printLog(resWrapper.data),
+                                            onLogin(context, resWrapper.data),
+                                          }
+                                        else
+                                          {
+                                            _buttonKey.currentState?.setError(),
+                                            AlertUtils.showSnackBar(
+                                                context, resWrapper.message),
+                                          }
+                                      });
+                            } else {
+                              AlertUtils.showSnackBar(
+                                  context, "No Internet Connection");
+                            }
                           }
                         },
                         enableIndicator: true,

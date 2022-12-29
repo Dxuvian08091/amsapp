@@ -1,5 +1,9 @@
 // ignore_for_file: library_prefixes
 
+import 'dart:convert';
+
+import 'package:amsapp/myutils/logger.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +17,7 @@ import 'app_localizations.dart';
 
 bool isLoggedIn = false;
 bool isFirstTime = false;
+bool hasAccessToken = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +25,8 @@ void main() async {
   await Preference.load();
   isLoggedIn = Preference.getBool(Constant.spIsLogin);
   isFirstTime = Preference.getBool(Constant.spIsFirstTime, def: true);
+  hasAccessToken =
+      Preference.getString(Constant.spAccessToken).isNotEmpty ? true : false;
 
   runApp(const MyApp());
 }
