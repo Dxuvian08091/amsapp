@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:amsapp/webservice/ApiService.dart';
 import 'package:flutter/material.dart';
 import 'package:amsapp/myutils/dimens.dart';
 import 'package:amsapp/myutils/styles.dart';
@@ -7,7 +8,13 @@ import 'package:amsapp/widgets/custom_indicator_button.dart';
 import 'package:amsapp/widgets/custom_text_field.dart';
 
 import '../app_localizations.dart';
+import '../myutils/alert_utils.dart';
 import '../myutils/app_colors.dart';
+import '../myutils/constant.dart';
+import '../myutils/logger.dart';
+import '../myutils/preference.dart';
+import '../myutils/route_generator.dart';
+import '../webservice/ResponseWrapper.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({Key? key}) : super(key: key);
@@ -112,6 +119,10 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           String oldPassword = oldPasswordController.text;
                           String password = confirmPasswordController.text;
                           String newPassword = newPasswordController.text;
+                          Map<String, dynamic> body = {
+                            'oldPassword': '$oldPassword',
+                            'password': '$password'
+                          };
                           if (oldPassword.isEmpty) {
                             _oldPasswordStream.sink
                                 .add("Please enter your current password");
@@ -135,7 +146,28 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                             _passwordStream.sink.add("");
                           }
                           if (isValid) {
-                            Navigator.pop(context);
+                            ApiProvider()
+                                .postUpdate(
+                                    ApiProvider.personsApi,
+                                    body,
+                                    Preference.getString(
+                                        Constant.spAccessToken))
+                                .then((resWrapper) => {
+                                      if (resWrapper.status ==
+                                          ResponseWrapper.COMPLETED)
+                                        {
+                                          _buttonKey.currentState?.setSuccess(),
+                                          Logger.printLog(resWrapper.data),
+                                          Navigator.pushReplacementNamed(
+                                              context, RouteNames.profilePage),
+                                        }
+                                      else
+                                        {
+                                          _buttonKey.currentState?.setError(),
+                                          AlertUtils.showSnackBar(
+                                              context, resWrapper.message),
+                                        }
+                                    });
                             _buttonKey.currentState?.setSuccess();
                           }
                         },

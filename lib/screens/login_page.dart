@@ -194,6 +194,8 @@ class _LoginPageState extends State<LoginPage> {
                                             _buttonKey.currentState
                                                 ?.setSuccess(),
                                             Logger.printLog(resWrapper.data),
+                                            Preference.setString(
+                                                'username', username),
                                             onLogin(context, resWrapper.data),
                                           }
                                         else

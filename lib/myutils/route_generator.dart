@@ -73,4 +73,5 @@ class RouteNames {
   static const attendancePresentPage = "attendancePresent";
   static const attendanceLeavePage = "attendanceLeave";
   static const createProfilePage = "createProfile";
+  static const changePassword = "changePassword";
 }

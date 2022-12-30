@@ -22,7 +22,7 @@ class ApiProvider {
   static const String personsApi = "${_apiController}persons/";
   static const String createPersonApi = "${_apiController}persons/create/";
   static const String rolesApi = "${_apiController}roles/";
-
+  static const String changePasswordApi = "${_apiController}/changepassword/";
   static const String attendancesApi = "${_apiController}attendances/";
   static const String profileApi = "${_apiController}profile/";
   static const String presentApi = "${attendancesApi}present/";

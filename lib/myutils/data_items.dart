@@ -98,3 +98,12 @@ List<String> districtItems = [
 ];
 
 List<String> genderItems = ["Male", "Female"];
+
+List<String> shiftTypeItems = [
+  "Work from Home",
+  "Work from Field",
+  "Work from Office",
+  "Leave",
+];
+
+List<String> statusItems = ["Present", "Absent", "Half Day"];

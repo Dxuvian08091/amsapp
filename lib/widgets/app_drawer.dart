@@ -37,7 +37,7 @@ class AppDrawer extends StatelessWidget {
                           style: Styles.semiBoldRegularFontStyle,
                         ),
                         Text(
-                          AppLocalizations.getString(context, "username"),
+                          Preference.getString('username'),
                           style: Styles.boldFontStyle_20,
                         ),
                         const SizedBox(
@@ -93,6 +93,19 @@ class AppDrawer extends StatelessWidget {
                       Navigator.pop(context);
                       Navigator.of(context)
                           .pushReplacementNamed(RouteNames.attendanceLeavePage);
+                    },
+                  ),
+                  const SizedBox(
+                    height: Dimens.normalDimens,
+                  ),
+                  CustomListTile(
+                    title:
+                        AppLocalizations.getString(context, "change_password"),
+                    iconData: Icons.download,
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.of(context)
+                          .pushReplacementNamed(RouteNames.changePassword);
                     },
                   ),
                   const SizedBox(
