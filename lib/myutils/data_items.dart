@@ -1,12 +1,12 @@
 List<String> bloodGroupItems = [
-  'A +ve',
-  'A -ve',
-  'B +ve',
-  'B -ve',
-  'O +ve',
-  'O -ve',
-  'AB +ve',
-  'AB -ve',
+  "A +ve",
+  "A -ve",
+  "B +ve",
+  "B -ve",
+  "O +ve",
+  "O -ve",
+  "AB +ve",
+  "AB -ve",
 ];
 
 List<String> stateItems = [

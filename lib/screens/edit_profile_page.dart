@@ -10,7 +10,7 @@ import 'package:amsapp/widgets/custom_image_selector.dart';
 import 'package:amsapp/widgets/custom_indicator_button.dart';
 
 import '../app_localizations.dart';
-import '../models/Person.dart';
+import '../models/person.dart';
 import '../myutils/alert_utils.dart';
 import '../myutils/app_colors.dart';
 import '../myutils/constant.dart';
@@ -137,14 +137,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
     firstNameController.text = firstName;
     middleNameController.text = middleName;
     lastNameController.text = lastName;
-    _genderKey.currentState!.value = gender;
     dobController.text = dob;
-    _stateKey.currentState!.text = state;
-    _districtKey.currentState!.text = district;
     emailController.text = email;
     mobileController.text = contactNo;
     addressController.text = address;
-    _bloodGroupKey.currentState!.value = bloodGroup;
     _profileImgKey.currentState!.filePath = profilePicture;
 
     return GestureDetector(

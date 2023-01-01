@@ -152,6 +152,7 @@ class CustomAutoCompleteTextFieldState
                     fieldViewBuilder: (context, fieldController, fieldFocusNode,
                         onFieldSubmittedd) {
                       return TextField(
+                        enableInteractiveSelection: false,
                         decoration: InputDecoration(
                           isDense: true,
                           labelText: label,

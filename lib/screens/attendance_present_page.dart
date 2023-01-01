@@ -1,4 +1,4 @@
-import 'package:amsapp/models/Attendance.dart';
+import 'package:amsapp/models/attendance.dart';
 import 'package:amsapp/webservice/ApiService.dart';
 import 'package:amsapp/widgets/CustomAttendanceLogTile.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class _AttendancePresentPageState extends State<AttendancePresentPage> {
     List<CustomAttendanceLogTile> attendanceLogTile =
         <CustomAttendanceLogTile>[];
     ApiProvider()
-        .get(ApiProvider.presentApi,
+        .get(ApiProvider.attendancesApi,
             Preference.getString(Constant.spAccessToken))
         .then((resWrapper) => {
               if (resWrapper.status == ResponseWrapper.COMPLETED)
@@ -92,7 +92,7 @@ class _AttendancePresentPageState extends State<AttendancePresentPage> {
               child: RefreshIndicator(
                 onRefresh: () async {
                   ApiProvider()
-                      .get(ApiProvider.presentApi,
+                      .get(ApiProvider.attendancesApi,
                           Preference.getString(Constant.spAccessToken))
                       .then((resWrapper) => {
                             if (resWrapper.status == ResponseWrapper.COMPLETED)

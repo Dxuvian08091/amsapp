@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:amsapp/myutils/app_colors.dart';
+import 'package:path/path.dart';
 
 import '../myutils/dimens.dart';
+import '../myutils/logger.dart';
 import '../myutils/styles.dart';
 
 class CustomDropDownButton extends StatefulWidget {
@@ -38,7 +40,7 @@ class CustomDropDownButtonState extends State<CustomDropDownButton> {
     List<String> condition = widget.condition ?? ["Default Option"];
     IconData iconData = widget.iconData ?? Icons.app_blocking;
     List<String> items = widget.items ?? ["Default Option"];
-    String? defaultValue = value;
+    String? defaultValue = value.isEmpty ? widget.value : value;
     bool hasBorder = widget.hasBorder ?? false;
     return Container(
       height: Dimens.normalDimens * 5,
@@ -71,12 +73,12 @@ class CustomDropDownButtonState extends State<CustomDropDownButton> {
               underline: const SizedBox(),
               value: defaultValue,
               style: Styles.labelFontStyle,
-              items: items.map((String item) {
-                return DropdownMenuItem(
-                  value: item,
-                  child: Text(item),
-                );
-              }).toList(),
+              items: items
+                  .map((String item) => DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(item),
+                      ))
+                  .toList(),
               onChanged: (String? newValue) {
                 if (condition.contains(newValue)) {
                   widget.streamController?.sink.add(true);

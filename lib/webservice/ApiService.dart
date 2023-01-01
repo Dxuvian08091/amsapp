@@ -12,21 +12,22 @@ import 'package:amsapp/myutils/logger.dart';
 import 'package:amsapp/webservice/ResponseWrapper.dart';
 
 class ApiProvider {
-  static const String _baseUrl = "http://192.168.1.7:8000";
+  static const String _baseUrl = "http://192.168.10.253:8000";
   static const String _apiController = "$_baseUrl/api/";
 
   //APIs
   static const String loginApi = "${_apiController}token/";
   static const String refreshTokenApi = "${_apiController}token/refresh/";
   static const String usersApi = "${_apiController}users/";
+  static const String createUsersApi = "${_apiController}users/create/";
   static const String personsApi = "${_apiController}persons/";
-  static const String createPersonApi = "${_apiController}persons/create/";
+  static const String createPersonsApi = "${_apiController}persons/create/";
   static const String rolesApi = "${_apiController}roles/";
-  static const String changePasswordApi = "${_apiController}/changepassword/";
+  static const String createRolesApi = "${_apiController}roles/create/";
+  static const String changePasswordApi = "${_apiController}changepassword/";
   static const String attendancesApi = "${_apiController}attendances/";
-  static const String profileApi = "${_apiController}profile/";
-  static const String presentApi = "${attendancesApi}present/";
-  static const String absentApi = "${attendancesApi}leave/";
+  static const String createAttendancesApi =
+      "${_apiController}attendances/create/";
 
   Future<dynamic> get(String url, String token) async {
     Logger.printLog("API : GET $url");

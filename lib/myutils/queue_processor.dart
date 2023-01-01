@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import "package:amsapp/models/Queue.dart";
+import 'package:amsapp/models/queue.dart';
 import 'package:amsapp/myutils/constant.dart';
 import 'package:amsapp/myutils/preference.dart';
 import "package:amsapp/webservice/ApiService.dart";

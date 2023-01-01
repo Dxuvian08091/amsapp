@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
       StreamController<String>.broadcast();
 
   void onLogin(BuildContext context, String data) {
-    QueueProcessor.processor();
+    // QueueProcessor.processor();
     dynamic resMap = jsonDecode(data);
     Preference.setString(Constant.spAccessToken, resMap["access"].toString());
     Preference.setString(Constant.spRefreshToken, resMap["refresh"].toString());
@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
       if (kDebugMode) {
         print('source $_source');
       }
-
+      Logger.printLog("init state");
       switch (_source.keys.toList()[0]) {
         case ConnectivityResult.mobile:
           isOnline = _source.values.toList()[0] ? true : false;
@@ -179,12 +179,13 @@ class _LoginPageState extends State<LoginPage> {
                           }
                           if (isValid) {
                             _buttonKey.currentState?.setLoading();
-
+                            Logger.printLog(
+                                Preference.getBool('isOnline').toString());
                             Map<String, String> body = {
                               "username": username,
                               "password": password
                             };
-                            if (isOnline) {
+                            if (Preference.getBool('isOnline')) {
                               ApiProvider()
                                   .post(ApiProvider.loginApi, body)
                                   .then((resWrapper) => {
@@ -208,6 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                             } else {
                               AlertUtils.showSnackBar(
                                   context, "No Internet Connection");
+                              _buttonKey.currentState?.setError();
                             }
                           }
                         },

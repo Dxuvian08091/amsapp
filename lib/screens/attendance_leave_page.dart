@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../app_localizations.dart';
-import '../models/Attendance.dart';
+import '../models/attendance.dart';
 import '../myutils/alert_utils.dart';
 import '../myutils/app_colors.dart';
 import '../myutils/constant.dart';
@@ -28,8 +28,8 @@ class _AttendanceLeavePageState extends State<AttendanceLeavePage> {
     List<CustomAttendanceLogTile> attendanceLogTile =
         <CustomAttendanceLogTile>[];
     ApiProvider()
-        .get(
-            ApiProvider.absentApi, Preference.getString(Constant.spAccessToken))
+        .get(ApiProvider.attendancesApi,
+            Preference.getString(Constant.spAccessToken))
         .then((resWrapper) => {
               if (resWrapper.status == ResponseWrapper.COMPLETED)
                 {
@@ -91,7 +91,7 @@ class _AttendanceLeavePageState extends State<AttendanceLeavePage> {
               child: RefreshIndicator(
                 onRefresh: () async {
                   ApiProvider()
-                      .get(ApiProvider.absentApi,
+                      .get(ApiProvider.attendancesApi,
                           Preference.getString(Constant.spAccessToken))
                       .then((resWrapper) => {
                             if (resWrapper.status == ResponseWrapper.COMPLETED)

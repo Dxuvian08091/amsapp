@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:amsapp/models/Attendance.dart';
-import 'package:amsapp/models/Queue.dart';
+import 'package:amsapp/models/attendance.dart';
+import 'package:amsapp/models/queue.dart';
 import 'package:amsapp/myutils/geolocation_helper.dart';
 import 'package:amsapp/myutils/network_connectivity.dart';
 import 'package:intl/intl.dart';

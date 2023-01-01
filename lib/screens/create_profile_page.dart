@@ -5,7 +5,7 @@ import 'package:amsapp/webservice/ResponseWrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../app_localizations.dart';
-import '../models/Person.dart';
+import '../models/person.dart';
 import '../myutils/alert_utils.dart';
 import '../myutils/app_colors.dart';
 import '../myutils/constant.dart';
@@ -70,7 +70,7 @@ class _CreateProfileState extends State<CreateProfilePage> {
 
   void onUpdated(BuildContext context, Map<String, dynamic> resData) {
     ApiProvider()
-        .postUpdate(ApiProvider.personsApi, resData,
+        .postUpdate(ApiProvider.createPersonsApi, resData,
             Preference.getString(Constant.spAccessToken))
         .then((resWrapper) => {
               if (resWrapper.status == ResponseWrapper.COMPLETED)
@@ -316,12 +316,12 @@ class _CreateProfileState extends State<CreateProfilePage> {
                               context: context,
                               initialDate: DateTime.now(),
                               firstDate: DateTime(1900),
-                              lastDate: DateTime(2000),
+                              lastDate: DateTime(2100),
                             );
                             if (pickedDate != null) {
                               setState(() {
                                 dobController.text =
-                                    DateFormat("dd/MM/yyyy").format(pickedDate);
+                                    DateFormat("yyyy-MM-dd").format(pickedDate);
                               });
                             }
                           },
@@ -434,6 +434,7 @@ class _CreateProfileState extends State<CreateProfilePage> {
                               } else {
                                 _profileImgStream.sink.add("");
                               }
+                              Logger.printLog(isValid.toString());
                               if (isValid) {
                                 onUpdated(
                                     context,
